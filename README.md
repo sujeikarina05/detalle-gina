@@ -14,9 +14,16 @@ La música se reproduce de manera automática. Asegúrate de que tu navegador pe
 ## Archivos principales
 
 - `index.html` – Página principal con la estructura de la web.
-- `script.js` – Código JavaScript que controla el carrusel, los mensajes y la música.
-- `*.jpg` – Fotografías que se muestran en el carrusel.
-- `musica.mp3` – Pista musical de fondo.
+- `assets/js/script.js` – Código JavaScript que controla el carrusel, los mensajes y la música.
+- `assets/images/` – Fotografías que se muestran en el carrusel.
+- `assets/audio/musica.mp3` – Pista musical de fondo.
+
+## Publicación en GitHub Pages
+
+Puedes publicar esta página en GitHub Pages de dos maneras:
+
+1. Desde la pestaña **Settings > Pages** elige la rama principal como fuente de publicación.
+2. O bien, utiliza el flujo de trabajo incluido en `.github/workflows/pages.yml` para desplegar cada vez que se haga un push a la rama `main`.
 
 ## Licencia
 

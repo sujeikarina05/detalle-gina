@@ -2,17 +2,17 @@
  * 1) CARRUSEL INICIAL (60 segundos totales, 11 imágenes)
  ****************************************************/
 const imagePaths = [
-  "1.jpg",
-  "2.jpg",
-  "3.jpg",
-  "4.jpg",
-  "5.jpg",
-  "6.jpg",
-  "7.jpg",
-  "8.jpg",
-  "9.jpg",
-  "10.jpg",
-  "11.jpg"
+  "assets/images/1.jpg",
+  "assets/images/2.jpg",
+  "assets/images/3.jpg",
+  "assets/images/4.jpg",
+  "assets/images/5.jpg",
+  "assets/images/6.jpg",
+  "assets/images/7.jpg",
+  "assets/images/8.jpg",
+  "assets/images/9.jpg",
+  "assets/images/10.jpg",
+  "assets/images/11.jpg"
 ];
 const imageAlts = [
   "Foto 1",
@@ -71,7 +71,7 @@ function bloomFlower() {
   const center = document.querySelector(".center");
   const messageEl = document.getElementById("message");
   const music = document.getElementById("backgroundMusic");
-  music.src = "musica.mp3";
+  music.src = "assets/audio/musica.mp3";
   music.play().catch(function(error) {
     console.error("Error al reproducir la música:", error);
   });
