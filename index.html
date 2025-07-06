@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌹 Un detalle especial para ti, Gina Stefany 🌹</title>
+  <style>
+    /* =================== Estilos generales =================== */
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle, #ffb3c1, #590d22);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      overflow-x: hidden;
+    }
+    .hidden {
+      display: none;
+    }
+    h1 {
+      color: white;
+      margin: 0 0 20px 0;
+    }
+
+    /* =================== CARRUSEL AL INICIO =================== */
+    #carouselSection {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    #carouselImage {
+      max-width: 90vw;
+      max-height: 80vh;
+      border: 5px solid white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    /* =================== Sección inicial (Flor y Mensajes) =================== */
+    #initialSection {
+      display: none; 
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .btn {
+      background: white;
+      border: 3px solid red;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+      margin-top: 20px;
+      display: none;
+    }
+    .btn:hover {
+      background: red;
+      color: white;
+      transform: scale(1.1);
+    }
+    .flower-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: scale(0);
+      transition: transform 1s ease-in-out;
+    }
+    .petal {
+      position: absolute;
+      width: 50px;
+      height: 80px;
+      background: red;
+      border-radius: 50%;
+      opacity: 0;
+      transition: all 1s ease-in-out;
+    }
+    .petal:nth-child(1) { transform: rotate(0deg) translateY(-40px); }
+    .petal:nth-child(2) { transform: rotate(45deg) translateY(-40px); }
+    .petal:nth-child(3) { transform: rotate(90deg) translateY(-40px); }
+    .petal:nth-child(4) { transform: rotate(135deg) translateY(-40px); }
+    .petal:nth-child(5) { transform: rotate(180deg) translateY(-40px); }
+    .center {
+      width: 40px;
+      height: 40px;
+      background: yellow;
+      border-radius: 50%;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .center.heartbeat {
+      animation: heartbeat 1.5s infinite alternate;
+    }
+    @keyframes heartbeat {
+      from { transform: scale(1); }
+      to { transform: scale(1.2); }
+    }
+    .message {
+      font-size: 22px;
+      color: white;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      margin-top: 20px;
+      min-height: 60px;
+      max-width: 90%;
+    }
+
+    /* =================== Sección del Ramo =================== */
+    #ramoContainer {
+      display: none;
+      position: relative;
+      width: 600px;
+      height: 800px;
+      margin: 50px auto;
+    }
+    .container {
+      position: absolute;
+      left: 50%;
+      top: 30%;
+      transform: translate(-50%, -50%);
+    }
+    .glass {
+      height: 800px;
+      width: 600px;
+      background: #122139;
+      border-radius: 300px 300px 0 0;
+    }
+    .glass:before {
+      content: "";
+      height: 40px;
+      width: 40px;
+      transform-origin: center;
+      border: 25px solid #122139;
+      border-radius: 100%;
+      position: absolute;
+      left: 256px;
+      top: -74px;
+    }
+    .glass:after {
+      content: "";
+      position: absolute;
+      height: 15px;
+      width: 600px;
+      background: #a52a2a;
+      top: 100%;
+      left: 0;
+    }
+    .shine {
+      width: 26px;
+      height: 330px;
+      background: white;
+      opacity: 0.2;
+      position: absolute;
+      left: 85%;
+      top: 200px;
+      border-radius: 100px;
+      z-index: 10;
+    }
+    .shine:before {
+      content: "";
+      width: 26px;
+      height: 40px;
+      position: absolute;
+      background: white;
+      top: 365px;
+      border-radius: 100px;
+    }
+    .petals > div {
+      position: absolute;
+      background: #d52d58;
+      width: 85px;
+      height: 120px;
+      top: 200px;
+      transition: all 0.5s ease-out;
+    }
+    .petals > div:nth-child(1) {
+      border-radius: 15px;
+      box-shadow: 0 0 60px rgba(245, 148, 184, 1);
+      left: 268px;
+      top: 200px;
+    }
+    .petals > div:nth-child(2),
+    .petals > div:nth-child(4),
+    .petals > div:nth-child(6) {
+      background: #b81b43;
+      left: 230px;
+      border-radius: 0 50px 0 50px;
+      transform-origin: bottom right;
+    }
+    .petals > div:nth-child(3),
+    .petals > div:nth-child(5),
+    .petals > div:nth-child(7) {
+      background: #b81b43;
+      left: 300px;
+      border-radius: 50px 0 50px 0;
+      transform-origin: bottom left;
+    }
+    .petals > div:nth-child(2) {
+      z-index: 5;
+      background: #ab1a3f;
+      top: 218px;
+      height: 130px;
+      box-shadow: 0 0 60px rgba(245, 148, 184, 0.5);
+      animation: bloom2 3s ease-in-out;
+      animation-fill-mode: forwards;
+    }
+    .petals > div:nth-child(3) {
+      z-index: 4;
+      background: #ab1a3f;
+      top: 218px;
+      height: 130px;
+      box-shadow: 0 0 60px rgba(245, 148, 184, 0.5);
+      animation: bloom3 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+      animation-fill-mode: forwards;
+    }
+    .petals > div:nth-child(4) {
+      z-index: 3;
+      background: #b81b43;
+      top: 213px;
+      height: 135px;
+      box-shadow: 0 0 60px rgba(245, 148, 184, 0.5);
+      animation: bloom4 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+      animation-fill-mode: forwards;
+    }
+    .petals > div:nth-child(5) {
+      z-index: 2;
+      background: #b81b43;
+      top: 213px;
+      height: 135px;
+      box-shadow: 0 0 60px rgba(245, 148, 184, 0.5);
+      animation: bloom5 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+      animation-fill-mode: forwards;
+    }
+    .petals > div:nth-child(6) {
+      z-index: 1;
+      background: #c9204b;
+      top: 200px;
+      height: 130px;
+      box-shadow: 0 0 60px rgba(245, 148, 184, 0.3);
+      animation: bloom6 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+      animation-fill-mode: forwards;
+    }
+    .petals > div:nth-child(7) {
+      z-index: 0;
+      background: #c9204b;
+      top: 200px;
+      height: 130px;
+      box-shadow: 0 0 60px rgba(245, 148, 184, 0.3);
+      animation: bloom7 3s ease-in-out, glowing 2.5s ease-in-out infinite;
+      animation-fill-mode: forwards;
+    }
+    .deadPetals > div {
+      position: absolute;
+      background: #d52d58;
+      width: 20px;
+      height: 15px;
+      top: 200px;
+      border-radius: 0 30px 0 30px;
+      box-shadow: 0 0 30px rgba(245, 148, 184, 0.5);
+      transition: all 0.5s ease-out;
+    }
+    .deadPetals > div:nth-child(1) {
+      left: 0;
+      transform: rotate(-30deg);
+      animation: falling 20s 4s ease-in-out infinite;
+    }
+    .deadPetals > div:nth-child(2) {
+      left: 50px;
+      transform: rotate(-30deg);
+      animation: falling 20s 8s ease-in-out infinite;
+    }
+    .deadPetals > div:nth-child(3) {
+      left: 100px;
+      transform: rotate(-30deg);
+      animation: falling 20s 12s ease-in-out infinite;
+    }
+    .deadPetals > div:nth-child(4) {
+      left: 150px;
+      transform: rotate(-30deg);
+      animation: falling 20s 16s ease-in-out infinite;
+    }
+    .leaves > div:nth-last-child(1) {
+      position: absolute;
+      width: 55px;
+      height: 30px;
+      background: #338f37;
+      top: 334px;
+      left: 278px;
+      border-radius: 100px;
+    }
+    .leaves > div:nth-child(1) {
+      position: absolute;
+      width: 15px;
+      height: 390px;
+      background: #054c05;
+      top: 308px;
+      left: 300px;
+      border-radius: 0 0 100px 100px;
+    }
+    .leaves > div:nth-child(2) {
+      position: absolute;
+      width: 60px;
+      height: 100px;
+      border-radius: 10px 80px 40px 80px;
+      background: #054c05;
+      transform-origin: bottom;
+      transform: rotate(-30deg);
+      top: 412px;
+      left: 254px;
+      box-shadow: inset 10px 10px #066406;
+    }
+    .leaves > div:nth-child(3) {
+      position: absolute;
+      width: 60px;
+      height: 100px;
+      border-radius: 80px 1px 80px 40px;
+      background: #054c05;
+      transform-origin: bottom;
+      transform: rotate(30deg);
+      top: 360px;
+      left: 300px;
+      box-shadow: inset -10px 10px #066406;
+    }
+    .thorns > div {
+      position: absolute;
+      width: 0;
+      height: 0;
+      top: 200px;
+    }
+    .thorns > div:nth-child(odd) {
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 15px solid #054c05;
+      left: 315px;
+    }
+    .thorns > div:nth-child(even) {
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-right: 15px solid #054c05;
+      left: 285px;
+    }
+    .thorns > div:nth-child(1) {
+      top: 465px;
+    }
+    .thorns > div:nth-child(2) {
+      top: 390px;
+    }
+    .thorns > div:nth-child(4) {
+      top: 525px;
+    }
+    @keyframes bloom2 {
+      50% {
+        transform: rotate(-90deg);
+        top: 400px;
+        left: 150px;
+      }
+      100% {
+        transform: rotate(-60deg);
+        top: 615px;
+        left: 100px;
+        background: #71122a;
+        box-shadow: 0 0 0 rgba(245, 148, 184, 0);
+      }
+    }
+    @keyframes bloom3 {
+      100% {
+        transform: rotate(50deg);
+      }
+    }
+    @keyframes bloom4 {
+      100% {
+        transform: rotate(-25deg);
+      }
+    }
+    @keyframes bloom5 {
+      100% {
+        transform: rotate(25deg);
+      }
+    }
+    @keyframes bloom6 {
+      100% {
+        transform: rotate(-10deg);
+      }
+    }
+    @keyframes bloom7 {
+      100% {
+        transform: rotate(10deg);
+      }
+    }
+    @keyframes glowing {
+      50% {
+        background: #d7365f;
+        box-shadow: 0 0 60px rgba(245, 148, 184, 1);
+      }
+    }
+    @keyframes falling {
+      20% {
+        top: 335px;
+        background: #9d193b;
+        box-shadow: 0 0 0 rgba(245, 148, 184, 0);
+      }
+      100% {
+        top: 335px;
+        opacity: 0;
+      }
+    }
+    .texto {
+      top: 50%;
+      color: white;
+      font-size: 35px;
+      position: absolute;
+      left: 10%;
+    }
+
+    /* =================== Media Queries para Responsividad =================== */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 24px;
+      }
+      .btn {
+        font-size: 18px;
+        padding: 10px 20px;
+      }
+      #carouselImage {
+        max-width: 95vw;
+        max-height: 60vh;
+      }
+      .flower-container {
+        width: 120px;
+        height: 120px;
+      }
+      .petal {
+        width: 40px;
+        height: 65px;
+      }
+      .center {
+        width: 30px;
+        height: 30px;
+      }
+      .message {
+        font-size: 18px;
+      }
+      #ramoContainer {
+        width: 90vw;
+        height: auto;
+      }
+      .glass {
+        height: auto;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- =================== CARRUSEL (60 segundos totales: 11 imágenes) =================== -->
+  <div id="carouselSection">
+    <h1>Recuerdos con Gina Stefany</h1>
+    <img id="carouselImage" src="" alt="Carrusel" />
+  </div>
+
+  <!-- =================== Sección inicial (Flor y Mensajes) =================== -->
+  <div id="initialSection">
+    <h1>🌹 Un detalle especial para ti, Gina Stefany 🌹</h1>
+    <!-- Botón para abrir la flor y reproducir la música -->
+    <button class="btn" id="openButton" onclick="bloomFlower()">✨ Haz clic aquí ✨</button>
+    <!-- Contenedor de la flor -->
+    <div class="flower-container" id="flower">
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="center"></div>
+    </div>
+    <!-- Mensajes -->
+    <p class="message" id="message"></p>
+    <!-- Botón para avanzar en los mensajes -->
+    <button class="btn" id="nextButton" onclick="nextMessage()">Siguiente</button>
+  </div>
+
+  <!-- =================== Sección del Ramo =================== -->
+  <div id="ramoContainer">
+    <div class="container">
+      <div class="glass">
+        <div class="shine"></div>
+      </div>
+      <div class="thorns">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="leaves">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="petals">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="deadPetals">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div>
+      <h4 class="texto">Mi amor por ti durará hasta que caiga el último pétalo ❤️</h4>
+    </div>
+  </div>
+
+  <!-- Elemento de audio para la música de fondo -->
+  <audio id="backgroundMusic" class="hidden" loop></audio>
+
+  <script>
+    /****************************************************
+     * 1) CARRUSEL INICIAL (60 segundos totales, 11 imágenes)
+     ****************************************************/
+    // Array de imágenes locales (asegúrate de que estén en la misma carpeta que este HTML)
+    let imagePaths = [
+      "1.jpg",
+      "2.jpg",
+      "3.jpg",
+      "4.jpg",
+      "5.jpg",
+      "6.jpg",
+      "7.jpg",
+      "8.jpg",
+      "9.jpg",
+      "10.jpg",
+      "11.jpg"
+    ];
+    let carouselIndex = 0;
+    let carouselImage = document.getElementById("carouselImage");
+    // Duración total: 60,000 ms; cada imagen se muestra durante:
+    const duration = 60000 / imagePaths.length; // Aproximadamente 5455 ms por imagen
+
+    function startCarousel() {
+      // Mostrar la primera imagen
+      carouselImage.src = imagePaths[0];
+      // Cambiar imagen cada 'duration' ms
+      let interval = setInterval(() => {
+        carouselIndex++;
+        if (carouselIndex < imagePaths.length) {
+          carouselImage.src = imagePaths[carouselIndex];
+        } else {
+          clearInterval(interval);
+          // Al finalizar, ocultamos el carrusel y mostramos la sección de la flor
+          document.getElementById("carouselSection").style.display = "none";
+          document.getElementById("initialSection").style.display = "flex";
+          // Mostrar el botón para iniciar la animación de la flor y reproducir la música
+          document.getElementById("openButton").style.display = "block";
+        }
+      }, duration);
+    }
+    window.onload = startCarousel;
+
+    /****************************************************
+     * 2) SECCIÓN FLOR Y MENSAJES
+     ****************************************************/
+    let messages = [
+      "Gina Stefany, en este Día de San Valentín quiero recordarte lo especial que eres. Tu sonrisa ilumina cada rincón de mi corazón.",
+      "Cada día a tu lado es un regalo maravilloso, lleno de amor, alegría y esperanza. Eres mi musa e inspiración.",
+      "Tus ojos, llenos de ternura y vida, reflejan la belleza de un alma única que me enamora sin remedio.",
+      "Tu risa es la melodía que alegra mis días y tu amor el fuego que calienta mi ser. Te amo con todo mi corazón.",
+      "Contemplar tu dulzura y fortaleza me hace sentir el ser más afortunado. Eres la reina de mi corazón.",
+      "En cada abrazo y en cada beso encuentro un universo de sentimientos, recordándome lo afortunado que soy de tenerte.",
+      "Gina Stefany, tu amor transforma mis días grises en un arcoíris de esperanza. Gracias por llenar mi vida de magia.",
+      "Feliz Día de San Valentín, mi amor eterno. Que cada latido de mi corazón te susurre lo mucho que te amo y te admiro."
+    ];
+    let currentIndex = 0;
+
+    function bloomFlower() {
+      document.getElementById("openButton").style.display = "none";
+      let flower = document.getElementById("flower");
+      let petals = document.querySelectorAll(".petal");
+      let center = document.querySelector(".center");
+      let messageEl = document.getElementById("message");
+
+      // Reproducir música usando el elemento <audio> y una ruta relativa
+      let music = document.getElementById("backgroundMusic");
+      music.src = "musica.mp3"; // Asegúrate de que 'musica.mp3' esté en la misma carpeta que este HTML.
+      music.play().catch(function(error) {
+        console.error("Error al reproducir la música:", error);
+      });
+
+      // Animar la flor
+      flower.style.transform = "scale(1)";
+      petals.forEach((petal, index) => {
+        setTimeout(() => {
+          petal.style.opacity = "1";
+        }, index * 500);
+      });
+
+      // Mostrar el centro y el primer mensaje
+      setTimeout(() => {
+        center.style.opacity = "1";
+        center.classList.add("heartbeat");
+        messageEl.innerHTML = messages[0];
+        messageEl.style.opacity = "1";
+        // Mostrar el botón "Siguiente" si hay más mensajes
+        if (messages.length > 1) {
+          let btn = document.getElementById("nextButton");
+          btn.style.display = "block";
+          btn.innerHTML = "Siguiente";
+        }
+      }, 2500);
+    }
+
+    function nextMessage() {
+      let messageEl = document.getElementById("message");
+      messageEl.style.opacity = "0";
+      setTimeout(() => {
+        currentIndex++;
+        if (currentIndex < messages.length) {
+          messageEl.innerHTML = messages[currentIndex];
+          messageEl.style.opacity = "1";
+          let btn = document.getElementById("nextButton");
+          if (currentIndex === messages.length - 1) {
+            btn.innerHTML = "Última sorpresa";
+          } else if (currentIndex === 2) {
+            btn.innerHTML = "Sigue leyendo";
+          } else {
+            btn.innerHTML = "Siguiente";
+          }
+        } else {
+          document.getElementById("nextButton").style.display = "none";
+          document.getElementById("initialSection").style.display = "none";
+          document.getElementById("ramoContainer").style.display = "block";
+        }
+      }, 500);
+    }
+  </script>
+</body>
+</html>
