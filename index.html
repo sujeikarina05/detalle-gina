@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Página especial dedicada a Gina Stefany con fotos, mensajes y música."/>
   <title>🌹 Un detalle especial para ti, Gina Stefany 🌹</title>
   <style>
     /* =================== Estilos generales =================== */
@@ -529,125 +530,7 @@
 
   <!-- Elemento de audio para la música de fondo -->
   <audio id="backgroundMusic" class="hidden" loop></audio>
+  <script src="script.js" defer></script>
 
-  <script>
-    /****************************************************
-     * 1) CARRUSEL INICIAL (60 segundos totales, 11 imágenes)
-     ****************************************************/
-    // Array de imágenes locales (asegúrate de que estén en la misma carpeta que este HTML)
-    let imagePaths = [
-      "1.jpg",
-      "2.jpg",
-      "3.jpg",
-      "4.jpg",
-      "5.jpg",
-      "6.jpg",
-      "7.jpg",
-      "8.jpg",
-      "9.jpg",
-      "10.jpg",
-      "11.jpg"
-    ];
-    let carouselIndex = 0;
-    let carouselImage = document.getElementById("carouselImage");
-    // Duración total: 60,000 ms; cada imagen se muestra durante:
-    const duration = 60000 / imagePaths.length; // Aproximadamente 5455 ms por imagen
-
-    function startCarousel() {
-      // Mostrar la primera imagen
-      carouselImage.src = imagePaths[0];
-      // Cambiar imagen cada 'duration' ms
-      let interval = setInterval(() => {
-        carouselIndex++;
-        if (carouselIndex < imagePaths.length) {
-          carouselImage.src = imagePaths[carouselIndex];
-        } else {
-          clearInterval(interval);
-          // Al finalizar, ocultamos el carrusel y mostramos la sección de la flor
-          document.getElementById("carouselSection").style.display = "none";
-          document.getElementById("initialSection").style.display = "flex";
-          // Mostrar el botón para iniciar la animación de la flor y reproducir la música
-          document.getElementById("openButton").style.display = "block";
-        }
-      }, duration);
-    }
-    window.onload = startCarousel;
-
-    /****************************************************
-     * 2) SECCIÓN FLOR Y MENSAJES
-     ****************************************************/
-    let messages = [
-      "Gina Stefany, en este Día de San Valentín quiero recordarte lo especial que eres. Tu sonrisa ilumina cada rincón de mi corazón.",
-      "Cada día a tu lado es un regalo maravilloso, lleno de amor, alegría y esperanza. Eres mi musa e inspiración.",
-      "Tus ojos, llenos de ternura y vida, reflejan la belleza de un alma única que me enamora sin remedio.",
-      "Tu risa es la melodía que alegra mis días y tu amor el fuego que calienta mi ser. Te amo con todo mi corazón.",
-      "Contemplar tu dulzura y fortaleza me hace sentir el ser más afortunado. Eres la reina de mi corazón.",
-      "En cada abrazo y en cada beso encuentro un universo de sentimientos, recordándome lo afortunado que soy de tenerte.",
-      "Gina Stefany, tu amor transforma mis días grises en un arcoíris de esperanza. Gracias por llenar mi vida de magia.",
-      "Feliz Día de San Valentín, mi amor eterno. Que cada latido de mi corazón te susurre lo mucho que te amo y te admiro."
-    ];
-    let currentIndex = 0;
-
-    function bloomFlower() {
-      document.getElementById("openButton").style.display = "none";
-      let flower = document.getElementById("flower");
-      let petals = document.querySelectorAll(".petal");
-      let center = document.querySelector(".center");
-      let messageEl = document.getElementById("message");
-
-      // Reproducir música usando el elemento <audio> y una ruta relativa
-      let music = document.getElementById("backgroundMusic");
-      music.src = "musica.mp3"; // Asegúrate de que 'musica.mp3' esté en la misma carpeta que este HTML.
-      music.play().catch(function(error) {
-        console.error("Error al reproducir la música:", error);
-      });
-
-      // Animar la flor
-      flower.style.transform = "scale(1)";
-      petals.forEach((petal, index) => {
-        setTimeout(() => {
-          petal.style.opacity = "1";
-        }, index * 500);
-      });
-
-      // Mostrar el centro y el primer mensaje
-      setTimeout(() => {
-        center.style.opacity = "1";
-        center.classList.add("heartbeat");
-        messageEl.innerHTML = messages[0];
-        messageEl.style.opacity = "1";
-        // Mostrar el botón "Siguiente" si hay más mensajes
-        if (messages.length > 1) {
-          let btn = document.getElementById("nextButton");
-          btn.style.display = "block";
-          btn.innerHTML = "Siguiente";
-        }
-      }, 2500);
-    }
-
-    function nextMessage() {
-      let messageEl = document.getElementById("message");
-      messageEl.style.opacity = "0";
-      setTimeout(() => {
-        currentIndex++;
-        if (currentIndex < messages.length) {
-          messageEl.innerHTML = messages[currentIndex];
-          messageEl.style.opacity = "1";
-          let btn = document.getElementById("nextButton");
-          if (currentIndex === messages.length - 1) {
-            btn.innerHTML = "Última sorpresa";
-          } else if (currentIndex === 2) {
-            btn.innerHTML = "Sigue leyendo";
-          } else {
-            btn.innerHTML = "Siguiente";
-          }
-        } else {
-          document.getElementById("nextButton").style.display = "none";
-          document.getElementById("initialSection").style.display = "none";
-          document.getElementById("ramoContainer").style.display = "block";
-        }
-      }, 500);
-    }
-  </script>
 </body>
 </html>
