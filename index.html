@@ -18,6 +18,41 @@
     .hidden {
       display: none;
     }
+    #pantalla-inicio {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    #puzzleBoard,
+    #puzzlePieces {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      justify-content: center;
+      margin: 10px auto;
+    }
+    #puzzleBoard {
+      margin-bottom: 20px;
+    }
+    #puzzleBoard .slot,
+    #puzzlePieces .piece {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #fff;
+      background-size: 300px 300px;
+    }
+    #puzzleBoard .slot {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    #puzzlePieces .piece {
+      cursor: move;
+    }
+    #pantalla-inicio .btn {
+      display: block;
+    }
     h1 {
       color: white;
       margin: 0 0 20px 0;
@@ -462,12 +497,20 @@
     }
   </style>
 </head>
-<body>
-  <!-- =================== CARRUSEL (60 segundos totales: 11 imágenes) =================== -->
-  <div id="carouselSection">
-    <h1>Recuerdos con Gina Stefany</h1>
-    <img id="carouselImage" src="" alt="Carrusel" />
-  </div>
+  <body>
+    <!-- Pantalla de inicio -->
+    <div id="pantalla-inicio">
+      <h1>Hola Gina 💖 ¿Qué quieres ver primero?</h1>
+      <button class="btn" id="btnSorpresa">✨ Sorpresa</button>
+      <button class="btn" id="btnJuego">🎮 Juego</button>
+    </div>
+
+    <div id="contenedor-sorpresa" class="hidden">
+      <!-- =================== CARRUSEL (60 segundos totales: 11 imágenes) =================== -->
+      <div id="carouselSection">
+        <h1>Recuerdos con Gina Stefany</h1>
+        <img id="carouselImage" src="" alt="Carrusel" />
+      </div>
 
   <!-- =================== Sección inicial (Flor y Mensajes) =================== -->
   <div id="initialSection">
@@ -525,6 +568,19 @@
     </div>
     <div>
       <h4 class="texto">Mi amor por ti durará hasta que caiga el último pétalo ❤️</h4>
+    </div>
+  </div>
+  </div> <!-- fin contenedor-sorpresa -->
+
+  <div id="contenedor-juego" class="hidden">
+    <div id="nivel1">
+      <h1>Arma el rompecabezas</h1>
+      <div id="puzzleBoard"></div>
+      <div id="puzzlePieces"></div>
+    </div>
+    <div id="nivel2" class="hidden">
+      <h1>¡Bien hecho!</h1>
+      <button class="btn" id="verSorpresa">Ver la sorpresa 💕</button>
     </div>
   </div>
 

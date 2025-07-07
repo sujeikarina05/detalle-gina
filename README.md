@@ -1,6 +1,6 @@
 # Detalle para Gina Stefany
 
-Esta pequeña página web es un detalle de San Valentín. Muestra un carrusel de fotografías, una flor animada con varios mensajes y música de fondo.
+Esta pequeña página web es un detalle de San Valentín. Ahora incluye una pantalla inicial donde puedes elegir entre una **Sorpresa** directa o un pequeño **Juego** de rompecabezas antes de ver la sorpresa.
 
 ## Cómo abrir la página
 
