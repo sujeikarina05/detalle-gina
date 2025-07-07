@@ -17,6 +17,7 @@ La música se reproduce de manera automática. Asegúrate de que tu navegador pe
 - `assets/js/script.js` – Código JavaScript que controla el carrusel, los mensajes y la música.
 - `assets/images/` – Fotografías que se muestran en el carrusel.
 - `assets/audio/musica.mp3` – Pista musical de fondo.
+- `assets/audio/musica2.mp3` – Se reproduce tras el carrusel de fotos.
 
 ## Publicación en GitHub Pages
 
