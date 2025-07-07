@@ -1,6 +1,7 @@
 # Detalle para Gina Stefany
 
 Esta pequeña página web es un detalle de San Valentín. Ahora incluye una pantalla inicial donde puedes elegir entre una **Sorpresa** directa o un pequeño **Juego** de rompecabezas antes de ver la sorpresa.
+Si eliges el juego se mostrará un puzzle 3×3 usando la imagen `1.jpg`. Solo arrastra cada pieza al tablero y, cuando todas estén en su sitio, podrás continuar a la sorpresa.
 
 ## Cómo abrir la página
 

@@ -152,8 +152,6 @@ function initPuzzle() {
   pantallaInicio.style.display = "none";
   piecesContainer.innerHTML = "";
   board.innerHTML = "";
-  const indices = [0,1,2,3,4,5,6,7,8];
-  shuffle(indices);
   for (let i=0;i<9;i++) {
     const slot = document.createElement("div");
     slot.className = "slot";
@@ -177,6 +175,13 @@ function initPuzzle() {
   for(let i=piecesContainer.children.length;i>=0;i--) {
     piecesContainer.appendChild(piecesContainer.children[Math.random()*i|0]);
   }
+  piecesContainer.addEventListener("dragover", e => e.preventDefault());
+  piecesContainer.addEventListener("drop", e => {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/plain");
+    const piece = piecesContainer.querySelector(`.piece[data-index='${id}']`);
+    if (piece) piecesContainer.appendChild(piece);
+  });
 }
 
 function dragPiece(e) {
@@ -184,10 +189,13 @@ function dragPiece(e) {
 }
 
 function dropPiece(e) {
-  if (e.target.children.length === 0) {
+  e.preventDefault();
+  if (e.target.classList.contains("slot") && e.target.children.length === 0) {
     const id = e.dataTransfer.getData("text/plain");
     const piece = piecesContainer.querySelector(`.piece[data-index='${id}']`);
-    if (piece) e.target.appendChild(piece);
+    if (piece) {
+      e.target.appendChild(piece);
+    }
     checkPuzzle();
   }
 }
