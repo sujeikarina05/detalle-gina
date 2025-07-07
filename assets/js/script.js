@@ -30,9 +30,25 @@ const imageAlts = [
 let carouselIndex = 0;
 const carouselImage = document.getElementById("carouselImage");
 const music = document.getElementById("backgroundMusic");
+const startMusicBtn = document.getElementById("startMusic");
 const petals = document.querySelectorAll(".petal");
 let petalCloseIndex = petals.length - 1;
 const duration = 60000 / imagePaths.length;
+
+function playMusic(src) {
+  music.src = src;
+  music.load();
+  music.play().catch(function (error) {
+    console.error("Error al reproducir la música:", error);
+    if (startMusicBtn) {
+      startMusicBtn.style.display = "block";
+      startMusicBtn.onclick = function () {
+        music.play();
+        startMusicBtn.style.display = "none";
+      };
+    }
+  });
+}
 
 function startCarousel() {
   carouselImage.src = imagePaths[0];
@@ -44,10 +60,7 @@ function startCarousel() {
       carouselImage.alt = imageAlts[carouselIndex];
     } else {
       clearInterval(interval);
-      music.src = "assets/audio/musica2.mp3";
-      music.play().catch(function (error) {
-        console.error("Error al reproducir la música:", error);
-      });
+      playMusic("assets/audio/musica2.mp3");
       document.getElementById("carouselSection").style.display = "none";
       document.getElementById("initialSection").style.display = "flex";
       document.getElementById("openButton").style.display = "block";
@@ -77,10 +90,7 @@ function bloomFlower() {
   petalCloseIndex = petals.length - 1;
   const center = document.querySelector(".center");
   const messageEl = document.getElementById("message");
-  music.src = "assets/audio/musica.mp3";
-  music.play().catch(function(error) {
-    console.error("Error al reproducir la música:", error);
-  });
+  playMusic("assets/audio/musica.mp3");
   flower.style.transform = "scale(1)";
   petals.forEach((petal, index) => {
     setTimeout(() => {

@@ -19,6 +19,8 @@ La música se reproduce de manera automática. Asegúrate de que tu navegador pe
 - `assets/audio/musica.mp3` – Pista musical de fondo.
 - `assets/audio/musica2.mp3` – Se reproduce tras el carrusel de fotos.
 
+Si el navegador bloquea la reproducción automática, aparecerá un botón "Reproducir música" para iniciar el audio manualmente.
+
 ## Publicación en GitHub Pages
 
 Puedes publicar esta página en GitHub Pages de dos maneras:
