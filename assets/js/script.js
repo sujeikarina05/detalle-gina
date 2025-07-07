@@ -152,8 +152,7 @@ function initPuzzle() {
   pantallaInicio.style.display = "none";
   piecesContainer.innerHTML = "";
   board.innerHTML = "";
-  const indices = [0,1,2,3,4,5,6,7,8];
-  shuffle(indices);
+  const indices = shuffle([0,1,2,3,4,5,6,7,8]);
   for (let i=0;i<9;i++) {
     const slot = document.createElement("div");
     slot.className = "slot";
@@ -162,12 +161,13 @@ function initPuzzle() {
     slot.addEventListener("drop", dropPiece);
     board.appendChild(slot);
 
+    const pieceIndex = indices[i];
     const piece = document.createElement("div");
     piece.className = "piece";
     piece.draggable = true;
-    piece.dataset.index = i;
-    const x = (i % 3) * -100;
-    const y = Math.floor(i / 3) * -100;
+    piece.dataset.index = pieceIndex;
+    const x = (pieceIndex % 3) * -100;
+    const y = Math.floor(pieceIndex / 3) * -100;
     piece.style.backgroundImage = "url('assets/images/1.jpg')";
     piece.style.backgroundPosition = `${x}px ${y}px`;
     piece.addEventListener("dragstart", dragPiece);
