@@ -1,6 +1,13 @@
 const PIECE_SIZE = 120;
+const pantallaInicio = document.getElementById("pantalla-inicio");
+const contenedorSorpresa = document.getElementById("contenedor-sorpresa");
+const contenedorJuego = document.getElementById("contenedor-juego");
+const nivel1 = document.getElementById("nivel1");
+const nivel2 = document.getElementById("nivel2");
+const piecesContainer = document.getElementById("puzzlePieces");
+const board = document.getElementById("puzzleBoard");
 
-function initPuzzle() {
+export function initPuzzle() {
   nivel2.classList.add("hidden");
   nivel1.classList.remove("hidden");
   contenedorJuego.classList.remove("hidden");
@@ -8,7 +15,7 @@ function initPuzzle() {
   pantallaInicio.style.display = "none";
   piecesContainer.innerHTML = "";
   board.innerHTML = "";
-  const indices = shuffle([0,1,2,3,4,5,6,7,8]);
+  const indices = [0,1,2,3,4,5,6,7,8].sort(() => Math.random() - 0.5);
   for (let i=0;i<9;i++) {
     const slot = document.createElement("div");
     slot.className = "slot";
@@ -39,11 +46,11 @@ function initPuzzle() {
   piecesContainer.addEventListener("drop", returnPiece);
 }
 
-function dragPiece(e) {
+export function dragPiece(e) {
   e.dataTransfer.setData("text/plain", e.target.dataset.index);
 }
 
-function dropPiece(e) {
+export function dropPiece(e) {
   e.preventDefault();
   if (e.currentTarget.children.length === 0) {
     const id = e.dataTransfer.getData("text/plain");
@@ -62,7 +69,7 @@ function returnPiece(e) {
   if (piece) piecesContainer.appendChild(piece);
 }
 
-function checkPuzzle() {
+export function checkPuzzle() {
   for (let i=0;i<9;i++) {
     const slot = board.children[i];
     if (!slot.firstChild || slot.firstChild.dataset.index != slot.dataset.index) {
@@ -72,12 +79,4 @@ function checkPuzzle() {
   alert("¡Bien hecho!");
   nivel1.classList.add("hidden");
   nivel2.classList.remove("hidden");
-}
-
-function shuffle(array){
-  for(let i=array.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [array[i],array[j]]=[array[j],array[i]];
-  }
-  return array;
 }
