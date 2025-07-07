@@ -14,7 +14,7 @@ La música se reproduce de manera automática. Asegúrate de que tu navegador pe
 ## Archivos principales
 
 - `index.html` – Página principal con la estructura de la web.
-- `assets/js/script.js` – Código JavaScript que controla el carrusel, los mensajes y la música.
+- `assets/js/script.js` – Código JavaScript que controla el carrusel, los mensajes, la música y maneja el juego de rompecabezas.
 - `assets/images/` – Fotografías que se muestran en el carrusel.
 - `assets/audio/musica.mp3` – Pista musical de fondo.
 - `assets/audio/musica2.mp3` – Se reproduce tras el carrusel de fotos.
