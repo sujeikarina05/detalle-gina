@@ -15,17 +15,17 @@ const imagePaths = [
   "assets/images/11.jpg"
 ];
 const imageAlts = [
-  "Foto 1",
-  "Foto 2",
-  "Foto 3",
-  "Foto 4",
-  "Foto 5",
-  "Foto 6",
-  "Foto 7",
-  "Foto 8",
-  "Foto 9",
-  "Foto 10",
-  "Foto 11"
+  "Recuerdo 1",
+  "Recuerdo 2",
+  "Recuerdo 3",
+  "Recuerdo 4",
+  "Recuerdo 5",
+  "Recuerdo 6",
+  "Recuerdo 7",
+  "Recuerdo 8",
+  "Recuerdo 9",
+  "Recuerdo 10",
+  "Recuerdo 11"
 ];
 let carouselIndex = 0;
 const carouselImage = document.getElementById("carouselImage");
