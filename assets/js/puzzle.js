@@ -7,6 +7,13 @@ const nivel2 = document.getElementById("nivel2");
 const piecesContainer = document.getElementById("puzzlePieces");
 const board = document.getElementById("puzzleBoard");
 
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
 export function initPuzzle() {
   nivel2.classList.add("hidden");
   nivel1.classList.remove("hidden");
@@ -36,10 +43,10 @@ export function initPuzzle() {
     piece.addEventListener("dragstart", dragPiece);
     piecesContainer.appendChild(piece);
   }
-  // shuffle pieces visually
-  for(let i=piecesContainer.children.length;i>=0;i--) {
-    piecesContainer.appendChild(piecesContainer.children[Math.random()*i|0]);
-  }
+  // shuffle pieces visually using helper
+  const elements = Array.from(piecesContainer.children);
+  shuffle(elements);
+  elements.forEach(el => piecesContainer.appendChild(el));
 
   // allow dropping pieces back to the container
   piecesContainer.addEventListener("dragover", e => e.preventDefault());
