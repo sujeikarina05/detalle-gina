@@ -46,6 +46,8 @@ const board = document.getElementById("puzzleBoard");
 function startCarousel() {
   clearInterval(carouselInterval);
   carouselIndex = 0;
+  music.src = "assets/audio/musica2.mp3";
+  music.play().catch(err => console.error("Error al reproducir la música:", err));
   carouselImage.src = imagePaths[0];
   carouselImage.alt = imageAlts[0];
   document.getElementById("carouselSection").style.display = "flex";
@@ -60,10 +62,6 @@ function startCarousel() {
       carouselImage.alt = imageAlts[carouselIndex];
     } else {
       clearInterval(carouselInterval);
-      music.src = "assets/audio/musica2.mp3";
-      music.play().catch(function (error) {
-        console.error("Error al reproducir la música:", error);
-      });
       document.getElementById("carouselSection").style.display = "none";
       document.getElementById("initialSection").style.display = "flex";
       document.getElementById("openButton").style.display = "block";
@@ -92,6 +90,8 @@ function bloomFlower() {
   petalCloseIndex = petals.length - 1;
   const center = document.querySelector(".center");
   const messageEl = document.getElementById("message");
+  music.pause();
+  music.currentTime = 0;
   music.src = "assets/audio/musica.mp3";
   music.play().catch(function(error) {
     console.error("Error al reproducir la música:", error);
