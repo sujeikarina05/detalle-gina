@@ -116,7 +116,7 @@ function nextMessage() {
   setTimeout(() => {
     currentIndex++;
     if (petalCloseIndex >= 0) {
-      petals[petalCloseIndex].style.opacity = "0";
+      petals[petalCloseIndex].classList.add("closed");
       petalCloseIndex--;
     }
     if (currentIndex < messages.length) {
