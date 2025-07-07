@@ -1,3 +1,5 @@
+import { initPuzzle, dragPiece, dropPiece, checkPuzzle } from "./puzzle.js";
+
 /****************************************************
  * 1) CARRUSEL INICIAL (60 segundos totales, 11 imágenes)
  ****************************************************/
