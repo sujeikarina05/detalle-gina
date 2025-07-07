@@ -177,6 +177,10 @@ function initPuzzle() {
   for(let i=piecesContainer.children.length;i>=0;i--) {
     piecesContainer.appendChild(piecesContainer.children[Math.random()*i|0]);
   }
+
+  // allow dropping pieces back to the container
+  piecesContainer.addEventListener("dragover", e => e.preventDefault());
+  piecesContainer.addEventListener("drop", returnPiece);
 }
 
 function dragPiece(e) {
@@ -184,12 +188,22 @@ function dragPiece(e) {
 }
 
 function dropPiece(e) {
-  if (e.target.children.length === 0) {
+  e.preventDefault();
+  if (e.currentTarget.children.length === 0) {
     const id = e.dataTransfer.getData("text/plain");
-    const piece = piecesContainer.querySelector(`.piece[data-index='${id}']`);
-    if (piece) e.target.appendChild(piece);
-    checkPuzzle();
+    const piece = document.querySelector(`.piece[data-index='${id}']`);
+    if (piece) {
+      e.currentTarget.appendChild(piece);
+      checkPuzzle();
+    }
   }
+}
+
+function returnPiece(e) {
+  e.preventDefault();
+  const id = e.dataTransfer.getData("text/plain");
+  const piece = document.querySelector(`.piece[data-index='${id}']`);
+  if (piece) piecesContainer.appendChild(piece);
 }
 
 function checkPuzzle() {
