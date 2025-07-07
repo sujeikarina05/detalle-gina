@@ -152,7 +152,7 @@ function initPuzzle() {
   pantallaInicio.style.display = "none";
   piecesContainer.innerHTML = "";
   board.innerHTML = "";
-  const indices = shuffle([0,1,2,3,4,5,6,7,8]);
+  const indices = [0,1,2,3,4,5,6,7,8];
   for (let i=0;i<9;i++) {
     const slot = document.createElement("div");
     slot.className = "slot";
@@ -218,13 +218,6 @@ function checkPuzzle() {
   nivel2.classList.remove("hidden");
 }
 
-function shuffle(array){
-  for(let i=array.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [array[i],array[j]]=[array[j],array[i]];
-  }
-  return array;
-}
 
 function mostrarSorpresa() {
   contenedorJuego.classList.add("hidden");
