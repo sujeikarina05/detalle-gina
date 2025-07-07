@@ -28,22 +28,38 @@ const imageAlts = [
   "Foto 11"
 ];
 let carouselIndex = 0;
+let carouselInterval;
 const carouselImage = document.getElementById("carouselImage");
 const music = document.getElementById("backgroundMusic");
 const petals = document.querySelectorAll(".petal");
 let petalCloseIndex = petals.length - 1;
 const duration = 60000 / imagePaths.length;
 
+const pantallaInicio = document.getElementById("pantalla-inicio");
+const contenedorSorpresa = document.getElementById("contenedor-sorpresa");
+const contenedorJuego = document.getElementById("contenedor-juego");
+const nivel1 = document.getElementById("nivel1");
+const nivel2 = document.getElementById("nivel2");
+const piecesContainer = document.getElementById("puzzlePieces");
+const board = document.getElementById("puzzleBoard");
+
 function startCarousel() {
+  clearInterval(carouselInterval);
+  carouselIndex = 0;
   carouselImage.src = imagePaths[0];
   carouselImage.alt = imageAlts[0];
-  const interval = setInterval(() => {
+  document.getElementById("carouselSection").style.display = "flex";
+  document.getElementById("initialSection").style.display = "none";
+  document.getElementById("ramoContainer").style.display = "none";
+  document.getElementById("openButton").style.display = "none";
+  document.getElementById("nextButton").style.display = "none";
+  carouselInterval = setInterval(() => {
     carouselIndex++;
     if (carouselIndex < imagePaths.length) {
       carouselImage.src = imagePaths[carouselIndex];
       carouselImage.alt = imageAlts[carouselIndex];
     } else {
-      clearInterval(interval);
+      clearInterval(carouselInterval);
       music.src = "assets/audio/musica2.mp3";
       music.play().catch(function (error) {
         console.error("Error al reproducir la música:", error);
@@ -54,7 +70,6 @@ function startCarousel() {
     }
   }, duration);
 }
-window.addEventListener("load", startCarousel);
 
 /****************************************************
  * 2) SECCIÓN FLOR Y MENSAJES
@@ -127,3 +142,86 @@ function nextMessage() {
     }
   }, 500);
 }
+
+// --------------------------- Juego ---------------------------
+function initPuzzle() {
+  nivel2.classList.add("hidden");
+  nivel1.classList.remove("hidden");
+  contenedorJuego.classList.remove("hidden");
+  contenedorSorpresa.classList.add("hidden");
+  pantallaInicio.style.display = "none";
+  piecesContainer.innerHTML = "";
+  board.innerHTML = "";
+  const indices = [0,1,2,3,4,5,6,7,8];
+  shuffle(indices);
+  for (let i=0;i<9;i++) {
+    const slot = document.createElement("div");
+    slot.className = "slot";
+    slot.dataset.index = i;
+    slot.addEventListener("dragover", e=>e.preventDefault());
+    slot.addEventListener("drop", dropPiece);
+    board.appendChild(slot);
+
+    const piece = document.createElement("div");
+    piece.className = "piece";
+    piece.draggable = true;
+    piece.dataset.index = i;
+    const x = (i % 3) * -100;
+    const y = Math.floor(i / 3) * -100;
+    piece.style.backgroundImage = "url('assets/images/1.jpg')";
+    piece.style.backgroundPosition = `${x}px ${y}px`;
+    piece.addEventListener("dragstart", dragPiece);
+    piecesContainer.appendChild(piece);
+  }
+  // shuffle pieces visually
+  for(let i=piecesContainer.children.length;i>=0;i--) {
+    piecesContainer.appendChild(piecesContainer.children[Math.random()*i|0]);
+  }
+}
+
+function dragPiece(e) {
+  e.dataTransfer.setData("text/plain", e.target.dataset.index);
+}
+
+function dropPiece(e) {
+  if (e.target.children.length === 0) {
+    const id = e.dataTransfer.getData("text/plain");
+    const piece = piecesContainer.querySelector(`.piece[data-index='${id}']`);
+    if (piece) e.target.appendChild(piece);
+    checkPuzzle();
+  }
+}
+
+function checkPuzzle() {
+  for (let i=0;i<9;i++) {
+    const slot = board.children[i];
+    if (!slot.firstChild || slot.firstChild.dataset.index != slot.dataset.index) {
+      return;
+    }
+  }
+  alert("¡Bien hecho!");
+  nivel1.classList.add("hidden");
+  nivel2.classList.remove("hidden");
+}
+
+function shuffle(array){
+  for(let i=array.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [array[i],array[j]]=[array[j],array[i]];
+  }
+  return array;
+}
+
+function mostrarSorpresa() {
+  contenedorJuego.classList.add("hidden");
+  nivel1.classList.remove("hidden");
+  pantallaInicio.style.display = "none";
+  contenedorSorpresa.classList.remove("hidden");
+  startCarousel();
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  document.getElementById("btnSorpresa").addEventListener("click", mostrarSorpresa);
+  document.getElementById("btnJuego").addEventListener("click", initPuzzle);
+  document.getElementById("verSorpresa").addEventListener("click", mostrarSorpresa);
+});
