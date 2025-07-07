@@ -15,21 +15,54 @@ const imagePaths = [
   "assets/images/11.jpg"
 ];
 const imageAlts = [
-  "Foto 1",
-  "Foto 2",
-  "Foto 3",
-  "Foto 4",
-  "Foto 5",
-  "Foto 6",
-  "Foto 7",
-  "Foto 8",
-  "Foto 9",
-  "Foto 10",
-  "Foto 11"
+  "Recuerdo 1",
+  "Recuerdo 2",
+  "Recuerdo 3",
+  "Recuerdo 4",
+  "Recuerdo 5",
+  "Recuerdo 6",
+  "Recuerdo 7",
+  "Recuerdo 8",
+  "Recuerdo 9",
+  "Recuerdo 10",
+  "Recuerdo 11"
 ];
 let carouselIndex = 0;
 const carouselImage = document.getElementById("carouselImage");
+const music = document.getElementById("backgroundMusic");
+const startMusicBtn = document.getElementById("startMusic");
+const petals = document.querySelectorAll(".petal");
+const petalOpenTransforms = [
+  "rotate(0deg) translateY(-40px)",
+  "rotate(45deg) translateY(-40px)",
+  "rotate(90deg) translateY(-40px)",
+  "rotate(135deg) translateY(-40px)",
+  "rotate(180deg) translateY(-40px)"
+];
+const petalCloseTransforms = [
+  "rotate(0deg) translateY(0)",
+  "rotate(45deg) translateY(0)",
+  "rotate(90deg) translateY(0)",
+  "rotate(135deg) translateY(0)",
+  "rotate(180deg) translateY(0)"
+];
+let petalCloseIndex = petals.length - 1;
 const duration = 60000 / imagePaths.length;
+
+function playMusic(src) {
+  music.src = src;
+  music.load();
+  music.play().catch(function (error) {
+    console.error("Error al reproducir la música:", error);
+    if (startMusicBtn) {
+      startMusicBtn.style.display = "block";
+      startMusicBtn.onclick = function () {
+        music.play();
+        startMusicBtn.style.display = "none";
+      };
+    }
+  });
+}
 
 function startCarousel() {
   carouselImage.src = imagePaths[0];
@@ -41,6 +74,7 @@ function startCarousel() {
       carouselImage.alt = imageAlts[carouselIndex];
     } else {
       clearInterval(interval);
+      playMusic("assets/audio/musica2.mp3");
       document.getElementById("carouselSection").style.display = "none";
       document.getElementById("initialSection").style.display = "flex";
       document.getElementById("openButton").style.display = "block";
@@ -67,18 +101,15 @@ let currentIndex = 0;
 function bloomFlower() {
   document.getElementById("openButton").style.display = "none";
   const flower = document.getElementById("flower");
-  const petals = document.querySelectorAll(".petal");
+  petalCloseIndex = petals.length - 1;
   const center = document.querySelector(".center");
   const messageEl = document.getElementById("message");
-  const music = document.getElementById("backgroundMusic");
-  music.src = "assets/audio/musica.mp3";
-  music.play().catch(function(error) {
-    console.error("Error al reproducir la música:", error);
-  });
+  playMusic("assets/audio/musica.mp3");
   flower.style.transform = "scale(1)";
   petals.forEach((petal, index) => {
     setTimeout(() => {
       petal.style.opacity = "1";
+      petal.style.transform = petalOpenTransforms[index];
     }, index * 500);
   });
   setTimeout(() => {
@@ -99,6 +130,10 @@ function nextMessage() {
   messageEl.style.opacity = "0";
   setTimeout(() => {
     currentIndex++;
+    if (petalCloseIndex >= 0) {
+      petals[petalCloseIndex].style.transform = petalCloseTransforms[petalCloseIndex];
+      petalCloseIndex--;
+    }
     if (currentIndex < messages.length) {
       messageEl.innerHTML = messages[currentIndex];
       messageEl.style.opacity = "1";
