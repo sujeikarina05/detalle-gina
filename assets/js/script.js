@@ -29,6 +29,9 @@ const imageAlts = [
 ];
 let carouselIndex = 0;
 const carouselImage = document.getElementById("carouselImage");
+const music = document.getElementById("backgroundMusic");
+const petals = document.querySelectorAll(".petal");
+let petalCloseIndex = petals.length - 1;
 const duration = 60000 / imagePaths.length;
 
 function startCarousel() {
@@ -41,6 +44,10 @@ function startCarousel() {
       carouselImage.alt = imageAlts[carouselIndex];
     } else {
       clearInterval(interval);
+      music.src = "assets/audio/musica2.mp3";
+      music.play().catch(function (error) {
+        console.error("Error al reproducir la música:", error);
+      });
       document.getElementById("carouselSection").style.display = "none";
       document.getElementById("initialSection").style.display = "flex";
       document.getElementById("openButton").style.display = "block";
@@ -67,10 +74,9 @@ let currentIndex = 0;
 function bloomFlower() {
   document.getElementById("openButton").style.display = "none";
   const flower = document.getElementById("flower");
-  const petals = document.querySelectorAll(".petal");
+  petalCloseIndex = petals.length - 1;
   const center = document.querySelector(".center");
   const messageEl = document.getElementById("message");
-  const music = document.getElementById("backgroundMusic");
   music.src = "assets/audio/musica.mp3";
   music.play().catch(function(error) {
     console.error("Error al reproducir la música:", error);
@@ -99,6 +105,10 @@ function nextMessage() {
   messageEl.style.opacity = "0";
   setTimeout(() => {
     currentIndex++;
+    if (petalCloseIndex >= 0) {
+      petals[petalCloseIndex].style.opacity = "0";
+      petalCloseIndex--;
+    }
     if (currentIndex < messages.length) {
       messageEl.innerHTML = messages[currentIndex];
       messageEl.style.opacity = "1";
