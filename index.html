@@ -28,8 +28,8 @@
     #puzzleBoard,
     #puzzlePieces {
       display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-template-rows: repeat(3, 100px);
+      grid-template-columns: repeat(3, 120px);
+      grid-template-rows: repeat(3, 120px);
       gap: 5px;
       justify-content: center;
       margin: 10px auto;
@@ -37,12 +37,18 @@
     #puzzleBoard {
       margin-bottom: 20px;
     }
+    /* Oculta cualquier referencia de la imagen completa del rompecabezas */
+    #puzzleBoard img {
+      display: none;
+    }
     #puzzleBoard .slot,
     #puzzlePieces .piece {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       border: 1px solid #fff;
-      background-size: 300px 300px;
+      background-size: 360px 360px;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
     #puzzleBoard .slot {
       background-color: rgba(255, 255, 255, 0.2);
@@ -587,6 +593,7 @@
   <!-- Elemento de audio para la música de fondo -->
   <audio id="backgroundMusic" class="hidden" loop></audio>
   <script src="assets/js/script.js" defer></script>
+  <script src="assets/js/puzzle.js" defer></script>
 
 </body>
 </html>
