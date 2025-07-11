@@ -18,7 +18,9 @@
       min-height: 100vh;
     }
     #puzzleBoard,
-    #puzzlePieces {
+    #puzzlePieces,
+    #puzzleBoard2,
+    #puzzlePieces2 {
       display: grid;
       grid-template-columns: repeat(3, 120px);
       grid-template-rows: repeat(3, 120px);
@@ -26,16 +28,21 @@
       justify-content: center;
       margin: 10px auto;
     }
-    #puzzleBoard {
+    #puzzleBoard,
+    #puzzleBoard2 {
       margin-bottom: 20px;
     }
     /* Oculta cualquier referencia de la imagen completa del rompecabezas */
-    #puzzleBoard img {
+    #puzzleBoard img,
+    #puzzleBoard2 img {
       display: none;
     }
     #puzzleBoard .slot,
     #puzzlePieces .piece,
-    #puzzleBoard .piece {
+    #puzzleBoard .piece,
+    #puzzleBoard2 .slot,
+    #puzzlePieces2 .piece,
+    #puzzleBoard2 .piece {
       width: 120px;
       height: 120px;
       border: 1px solid #fff;
@@ -43,10 +50,12 @@
       border-radius: 10px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
-    #puzzleBoard .slot {
+    #puzzleBoard .slot,
+    #puzzleBoard2 .slot {
       background-color: rgba(255, 255, 255, 0.2);
     }
-    #puzzlePieces .piece {
+    #puzzlePieces .piece,
+    #puzzlePieces2 .piece {
       cursor: move;
     }
     #pantalla-inicio .btn {

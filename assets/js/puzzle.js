@@ -4,10 +4,17 @@ const contenedorSorpresa = document.getElementById("contenedor-sorpresa");
 const contenedorJuego = document.getElementById("contenedor-juego");
 const nivel1 = document.getElementById("nivel1");
 const nivel2 = document.getElementById("nivel2");
+const nivelFinal = document.getElementById("nivelFinal");
 const piecesContainer = document.getElementById("puzzlePieces");
 const board = document.getElementById("puzzleBoard");
+const piecesContainer2 = document.getElementById("puzzlePieces2");
+const board2 = document.getElementById("puzzleBoard2");
+
+let currentBoard;
+let currentPieces;
 
 export function initPuzzle() {
+  nivelFinal.classList.add("hidden");
   nivel2.classList.add("hidden");
   nivel1.classList.remove("hidden");
   contenedorJuego.classList.remove("hidden");
@@ -15,6 +22,14 @@ export function initPuzzle() {
   pantallaInicio.style.display = "none";
   piecesContainer.innerHTML = "";
   board.innerHTML = "";
+  piecesContainer2.innerHTML = "";
+  board2.innerHTML = "";
+  currentBoard = board;
+  currentPieces = piecesContainer;
+  setupLevel(currentBoard, currentPieces, "assets/images/1.jpg");
+}
+
+function setupLevel(boardEl, piecesEl, imagePath) {
   const indices = [0,1,2,3,4,5,6,7,8].sort(() => Math.random() - 0.5);
   for (let i=0;i<9;i++) {
     const slot = document.createElement("div");
@@ -22,28 +37,26 @@ export function initPuzzle() {
     slot.dataset.index = i;
     slot.addEventListener("dragover", e=>e.preventDefault());
     slot.addEventListener("drop", dropPiece);
-    board.appendChild(slot);
+    boardEl.appendChild(slot);
 
     const pieceIndex = indices[i];
     const piece = document.createElement("div");
     piece.className = "piece";
     piece.draggable = true;
     piece.dataset.index = pieceIndex;
+    piece.setAttribute("aria-label", "pieza del rompecabezas");
     const x = (pieceIndex % 3) * -PIECE_SIZE;
     const y = Math.floor(pieceIndex / 3) * -PIECE_SIZE;
-    piece.style.backgroundImage = "url('assets/images/1.jpg')";
+    piece.style.backgroundImage = `url('${imagePath}')`;
     piece.style.backgroundPosition = `${x}px ${y}px`;
     piece.addEventListener("dragstart", dragPiece);
-    piecesContainer.appendChild(piece);
+    piecesEl.appendChild(piece);
   }
-  // shuffle pieces visually
-  for(let i=piecesContainer.children.length;i>=0;i--) {
-    piecesContainer.appendChild(piecesContainer.children[Math.random()*i|0]);
+  for(let i=piecesEl.children.length;i>=0;i--) {
+    piecesEl.appendChild(piecesEl.children[Math.random()*i|0]);
   }
-
-  // allow dropping pieces back to the container
-  piecesContainer.addEventListener("dragover", e => e.preventDefault());
-  piecesContainer.addEventListener("drop", returnPiece);
+  piecesEl.addEventListener("dragover", e => e.preventDefault());
+  piecesEl.addEventListener("drop", returnPiece);
 }
 
 export function dragPiece(e) {
@@ -54,7 +67,8 @@ export function dropPiece(e) {
   e.preventDefault();
   if (e.currentTarget.children.length === 0) {
     const id = e.dataTransfer.getData("text/plain");
-    const piece = document.querySelector(`.piece[data-index='${id}']`);
+    let piece = currentPieces.querySelector(`.piece[data-index='${id}']`);
+    if (!piece) piece = currentBoard.querySelector(`.piece[data-index='${id}']`);
     if (piece) {
       e.currentTarget.appendChild(piece);
       checkPuzzle();
@@ -65,18 +79,26 @@ export function dropPiece(e) {
 function returnPiece(e) {
   e.preventDefault();
   const id = e.dataTransfer.getData("text/plain");
-  const piece = document.querySelector(`.piece[data-index='${id}']`);
-  if (piece) piecesContainer.appendChild(piece);
+  const piece = currentBoard.querySelector(`.piece[data-index='${id}']`);
+  if (piece) currentPieces.appendChild(piece);
 }
 
 export function checkPuzzle() {
   for (let i=0;i<9;i++) {
-    const slot = board.children[i];
+    const slot = currentBoard.children[i];
     if (!slot.firstChild || slot.firstChild.dataset.index != slot.dataset.index) {
       return;
     }
   }
-  alert("¡Bien hecho!");
-  nivel1.classList.add("hidden");
-  nivel2.classList.remove("hidden");
+  if (currentBoard === board) {
+    nivel1.classList.add("hidden");
+    nivel2.classList.remove("hidden");
+    currentBoard = board2;
+    currentPieces = piecesContainer2;
+    setupLevel(currentBoard, currentPieces, "assets/images/2.jpg");
+  } else {
+    alert("¡Bien hecho!");
+    nivel2.classList.add("hidden");
+    nivelFinal.classList.remove("hidden");
+  }
 }
