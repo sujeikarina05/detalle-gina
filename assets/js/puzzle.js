@@ -29,6 +29,13 @@ export function initPuzzle() {
   setupLevel(currentBoard, currentPieces, "assets/images/1.jpg");
 }
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 function setupLevel(boardEl, piecesEl, imagePath) {
   const indices = [0,1,2,3,4,5,6,7,8].sort(() => Math.random() - 0.5);
   for (let i=0;i<9;i++) {
@@ -44,6 +51,7 @@ function setupLevel(boardEl, piecesEl, imagePath) {
     piece.className = "piece";
     piece.draggable = true;
     piece.dataset.index = pieceIndex;
+    piece.setAttribute("role", "img");
     piece.setAttribute("aria-label", "pieza del rompecabezas");
     const x = (pieceIndex % 3) * -PIECE_SIZE;
     const y = Math.floor(pieceIndex / 3) * -PIECE_SIZE;
@@ -52,9 +60,9 @@ function setupLevel(boardEl, piecesEl, imagePath) {
     piece.addEventListener("dragstart", dragPiece);
     piecesEl.appendChild(piece);
   }
-  for(let i=piecesEl.children.length;i>=0;i--) {
-    piecesEl.appendChild(piecesEl.children[Math.random()*i|0]);
-  }
+  const shuffled = Array.from(piecesEl.children);
+  shuffle(shuffled);
+  shuffled.forEach(el => piecesEl.appendChild(el));
   piecesEl.addEventListener("dragover", e => e.preventDefault());
   piecesEl.addEventListener("drop", returnPiece);
 }
