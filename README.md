@@ -2,6 +2,9 @@
 
 Esta pequeña página web es un detalle de San Valentín. Ahora incluye una pantalla inicial donde puedes elegir entre una **Sorpresa** directa o un pequeño **Juego** de rompecabezas antes de ver la sorpresa.
 
+El juego de rompecabezas cuenta con dos niveles. Al completar el primer tablero, se muestra un segundo rompecabezas antes de revelar el mensaje final.
+Cada pieza se marca como imagen mediante atributos ARIA para que los lectores de pantalla anuncien "pieza del rompecabezas".
+
 ## Cómo abrir la página
 
 1. Clona o descarga este repositorio.
